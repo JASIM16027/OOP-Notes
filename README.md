@@ -88,4 +88,118 @@ console.log(`Password is valid: ${isValid}`);
   - Use static methods for operations that logically belong to the class but don’t need instance-specific context.
   - Keep utility-focused code separate from instance-related logic.
 
-By organizing the `CommonUtils` class this way, you’ve ensured that the static methods provide a centralized, reusable set of functionalities for your application.
+Here’s an explanation of **utility functions**, **shared logic**, and **factory methods**, with practical TypeScript examples for each:
+
+---
+
+### **1. Utility Functions**
+Utility functions are reusable methods that perform specific tasks like hashing, encryption, formatting, or mathematical operations. They don’t depend on instance-specific data.
+
+#### Example: Hashing and Formatting Utilities
+```typescript
+import * as bcrypt from 'bcrypt';
+
+class UtilityFunctions {
+    // Hashing a password
+    static hashPassword(password: string): string {
+        return bcrypt.hashSync(password, 10);
+    }
+
+    // Validating a hashed password
+    static validatePassword(password: string, hash: string): boolean {
+        return bcrypt.compareSync(password, hash);
+    }
+
+    // Formatting a number to include commas
+    static formatNumber(value: number): string {
+        return value.toLocaleString('en-US');
+    }
+}
+
+// Usage
+const password = "secure123";
+const hashedPassword = UtilityFunctions.hashPassword(password);
+console.log(`Hashed Password: ${hashedPassword}`);
+
+const isValid = UtilityFunctions.validatePassword("secure123", hashedPassword);
+console.log(`Password is valid: ${isValid}`);
+
+console.log(`Formatted Number: ${UtilityFunctions.formatNumber(123456789)}`);
+```
+
+---
+
+### **2. Shared Logic**
+Shared logic refers to methods that provide common functionality across the application, typically grouped under a single class. These methods don’t rely on instance-specific data.
+
+#### Example: Shared Date and Time Operations
+```typescript
+import * as moment from 'moment';
+
+class DateTimeUtils {
+    // Calculate duration in minutes between two dates
+    static calculateDuration(startDate: string, endDate: string): number {
+        const start = moment(startDate);
+        const end = moment(endDate);
+        return Math.abs(end.diff(start, 'minutes'));
+    }
+
+    // Format a date to a common format
+    static formatToCommonDate(date: string): string {
+        return moment(date).format("YYYY-MM-DD HH:mm:ss");
+    }
+}
+
+// Usage
+const start = "2024-12-30T08:00:00";
+const end = "2024-12-30T10:30:00";
+
+console.log(`Duration: ${DateTimeUtils.calculateDuration(start, end)} minutes`);
+console.log(`Formatted Date: ${DateTimeUtils.formatToCommonDate(start)}`);
+```
+
+---
+
+### **3. Factory Methods**
+Factory methods are static methods used to create and initialize objects of a class. They encapsulate object creation logic, making it easier to manage and reuse.
+
+#### Example: Factory Method for Creating Instances
+```typescript
+class User {
+    constructor(public username: string, public email: string, public role: string) {}
+
+    // Factory method to create a User instance with default role
+    static createUser(username: string, email: string): User {
+        return new User(username, email, "User");
+    }
+
+    // Factory method to create an Admin
+    static createAdmin(username: string, email: string): User {
+        return new User(username, email, "Admin");
+    }
+}
+
+// Usage
+const user = User.createUser("john_doe", "john.doe@example.com");
+console.log(`User: ${user.username}, Role: ${user.role}`);
+
+const admin = User.createAdmin("admin_01", "admin@example.com");
+console.log(`Admin: ${admin.username}, Role: ${admin.role}`);
+```
+
+---
+
+### **Summary of Key Points**
+- **Utility Functions**:
+  - Provide specific functionality like hashing, encryption, or formatting.
+  - Example: Password hashing or number formatting.
+
+- **Shared Logic**:
+  - Encapsulate operations that are reused across the application but don’t depend on instance data.
+  - Example: Calculating time durations or formatting dates.
+
+- **Factory Methods**:
+  - Simplify object creation and initialization with pre-defined defaults or configurations.
+  - Example: Creating `User` or `Admin` instances with a factory method.
+
+By combining these approaches, you create modular, reusable, and maintainable code that adheres to good design principles.
