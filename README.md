@@ -203,3 +203,37 @@ console.log(`Admin: ${admin.username}, Role: ${admin.role}`);
   - Example: Creating `User` or `Admin` instances with a factory method.
 
 By combining these approaches, you create modular, reusable, and maintainable code that adheres to good design principles.
+
+
+
+### Object-Oriented Programming (OOP):
+OOP is a programming paradigm based on the concept of **objects**, which can contain **data** (attributes or properties) and **methods** (functions) that operate on the data. OOP promotes modularity, reusability, and maintainability by organizing code into classes and objects. 
+
+**Key principles of OOP:**
+1. **Encapsulation**: Wrapping data and methods into a single unit (class) and restricting direct access to some components using access modifiers (e.g., private, protected).
+2. **Inheritance**: Allowing a class (child) to inherit properties and behavior from another class (parent), promoting code reuse.
+3. **Polymorphism**: Enabling objects to take on multiple forms, such as method overloading (compile-time) and method overriding (runtime).
+4. **Abstraction**: Hiding implementation details and showing only the essential features of an object.
+
+---
+
+### Difference Between Abstract Class and Interface:
+| **Aspect**               | **Abstract Class**                                                                                 | **Interface**                                                                                 |
+|--------------------------|----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| **Definition**           | A class that can have both abstract (unimplemented) and concrete (implemented) methods.           | A blueprint for a class that only contains method signatures (no implementation).           |
+| **Purpose**              | Used for sharing behavior (via implemented methods) and defining a contract.                      | Used purely to define a contract for classes to follow.                                     |
+| **Inheritance**          | A class can inherit only one abstract class (single inheritance).                                  | A class can implement multiple interfaces (multiple inheritance).                           |
+| **Methods**              | Can have implemented (concrete) and unimplemented (abstract) methods.                             | Contains only abstract method signatures; no method implementations.                       |
+| **Fields/Properties**    | Can include fields, constants, and properties with access modifiers.                               | Can only include constants (no fields or instance variables).                              |
+| **Default Implementation** | Supports default behavior in methods.                                                            | Requires implementation of all methods in the implementing class unless defaults are provided (in some languages like Java 8+). |
+| **Usage Example (Java)** | `abstract class Shape { abstract void draw(); }`                                                  | `interface Drawable { void draw(); }`                                                      |
+| **Real-world Use Case**  | When you need shared logic between multiple related classes.                                       | When you need to ensure a contract is followed by unrelated classes.                       |
+
+### Choosing Between Abstract Class and Interface:
+- Use an **abstract class** when:
+  - Classes share common functionality that you want to implement in a base class.
+  - You want to take advantage of single inheritance for tightly related classes.
+
+- Use an **interface** when:
+  - You need to define a common contract for unrelated classes.
+  - You want to support multiple inheritance for a class.
